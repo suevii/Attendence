@@ -1,0 +1,42 @@
+<!--pages/student/uploadImage/uploadImage.wxml-->
+
+<!-- 用户登录测试 -->
+<view class="userinfo" bindtap="login">
+    <image
+        class="userinfo-avatar"
+        src="{{logged ? userInfo.avatarUrl : './user-unlogin.png'}}"
+        background-size="cover"
+    ></image>
+    <view>
+        <text class="userinfo-nickname">{{logged ? userInfo.nickName : '点击登录'}}</text>
+        <text class="userinfo-nickname" wx:if="{{logged}}">{{userInfo.lastLoginTime}}</text>
+    </view>
+</view>
+
+<view class="uploader">
+    <view class="uploader-text" bindtap="doUpload">
+        <text>上传图片</text>
+    </view>
+    <view class="uploader-container" wx:if="{{imgUrl}}">
+        <image
+            class="uploader-image"
+            src="{{imgUrl}}"
+            mode="aspectFit"
+            bindtap="previewImg"
+        ></image>
+    </view>
+</view>
+
+<view class="input-sp-area">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <input class="weui-input" placeholder="学号" bindinput='getUsername'/>
+    </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <input class="weui-input" placeholder="姓名" bindinput='getPassword'/>
+    </view>
+  </view>
+  <button class='weui-btn' bindtap='loginClick' hover-class='login-hover'>确定</button>
+</view>

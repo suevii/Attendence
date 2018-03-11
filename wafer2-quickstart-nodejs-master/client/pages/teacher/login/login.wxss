@@ -1,0 +1,22 @@
+/* pages/login/login.wxss */
+
+.input-sp-area{
+    margin: 0 auto;
+    margin-top: 50rpx;
+    width: 60%;
+}
+.user-avatar {
+    width: 162rpx;
+    height: 162rpx;
+    margin-top: 113rpx;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.weui-btn {
+    margin-top: 40px;
+}
+
+
+.login-hover {
+    color: rgba(122, 122, 122, 0.8);
+}
