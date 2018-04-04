@@ -1,3 +1,7 @@
+.button-sp-area{
+    margin: 0 auto;
+    width: 60%;
+}
 .vLine {
   height: 2rpx;
   background-color: #e5e5e5;
@@ -72,25 +76,4 @@
   width: 52rpx;
   height: 100%;
   margin: 0rpx 40rpx 0rpx auto;
-}
-
-.noquick {
-  display: flex;
-  flex-direction: column;
-}
-
-.noquick image {
-  width: 344rpx;
-  height: 344rpx;
-  margin: 224rpx auto 0rpx auto;
-}
-
-.noquick text {
-  margin: 66rpx auto 0rpx auto;
-  height: 48rpx;
-  line-height: 48rpx;
-  font-size: 34rpx;
-  letter-spacing: -0.8rpx;
-  text-align: center;
-  color: rgba(0, 0, 0, 0.38);
 }

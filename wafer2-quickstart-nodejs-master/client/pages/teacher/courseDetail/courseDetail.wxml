@@ -1,0 +1,10 @@
+<!--pages/teacher/courseDetail/courseDetail.wxml-->
+<button class="weui-btn"  bindtap="onChooseImage" type="primary">上传照片</button>
+    <view class="" wx:if="{{imgUrl}}">
+        <image
+            class="uploader-image"
+            src="{{imgUrl}}"
+            mode="aspectFit"
+            bindtap="previewImg"
+        ></image>
+    </view>

@@ -26,17 +26,18 @@
         ></image>
     </view>
 </view>
-
-<view class="input-sp-area">
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
-      <input class="weui-input" placeholder="学号" bindinput='getUsername'/>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="input-sp-area">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" placeholder="学号" name="student_id" bindinput='getUsername'/>
+      </view>
     </view>
-  </view>
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_input">
-      <input class="weui-input" placeholder="姓名" bindinput='getPassword'/>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" placeholder="姓名" name="student_name" bindinput='getPassword'/>
+      </view>
     </view>
+    <button class='weui-btn' bindtap='' type="primary" plain="true">确定</button>
   </view>
-  <button class='weui-btn' bindtap='loginClick' hover-class='login-hover'>确定</button>
-</view>
+</form>

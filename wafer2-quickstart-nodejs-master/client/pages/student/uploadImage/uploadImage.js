@@ -14,6 +14,11 @@ Page({
         requestResult: ''
     },
 
+    onShow: function () {
+      this.login()
+    },
+
+
       // 用户登录示例
     login: function() {
         if (this.data.logged) return
@@ -124,4 +129,45 @@ Page({
     })
   },
 
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    console.log(e.detail.value.student_id + e.detail.value.student_name)
+    if (e.detail.value.student_id == "" || e.detail.value.student_name == ""){
+      util.showModel('无法提交','请填写完整信息');
+    }
+    else{
+      util.showBusy('正在提交');
+      wx.request({
+        url: 'http://127.0.0.1:5757/sinsert',
+        data: {
+          person_one: app.globalData.person_one,
+          person_two: app.globalData.person_two,
+          team_name: e.detail.value.team_name,
+          team_state: e.detail.value.team_state + e.detail.value.present_num,
+          rule_1: e.detail.value.rule_1,
+          rule_2: e.detail.value.rule_2,
+          rule_3: e.detail.value.rule_3,
+          rule_4: e.detail.value.rule_4,
+          rule_5: e.detail.value.rule_5,
+          rule_6: e.detail.value.rule_6,
+          rule_7: e.detail.value.rule_7,
+          rule_8: e.detail.value.rule_8,
+          rule_9: e.detail.value.rule_9,
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          console.log(res.data)
+          util.showSuccess('提交成功');
+        }
+      })
+    }
+    
+  },
+  formReset: function () {
+    console.log('form发生了reset事件')
+    util.showSuccess('重置成功');
+  }
 })

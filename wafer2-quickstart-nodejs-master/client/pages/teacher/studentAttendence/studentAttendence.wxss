@@ -1,0 +1,27 @@
+/* pages/teacher/studentAttendence/studentAttendence.wxss */
+.pWorkers-item {
+  height: 86rpx;
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.12);
+}
+.vDate {
+  margin-left: 40rpx;
+  display: flex;
+  align-items: center;
+}
+.vLabeldate
+{
+  height: 48rpx;
+  line-height: 58rpx;
+  font-size: 34rpx;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.vDate image {
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 18rpx;
+  /*transform: rotate(90deg);*/
+}

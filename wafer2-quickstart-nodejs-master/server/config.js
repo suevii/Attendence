@@ -20,9 +20,18 @@ const CONF = {
         host: 'localhost',
         port: 3306,
         user: 'root',
-        db: 'cAuth',
+        db: 'student',
         pass: 'wx76bd20718f92b115',
         char: 'utf8mb4'
+    },
+
+    studentDb: {
+      host: 'localhost',
+      port: 3306,
+      user: 'root',
+      db: 'student',
+      pass: 'wx76bd20718f92b115',
+      char: 'utf8mb4'
     },
 
     cos: {

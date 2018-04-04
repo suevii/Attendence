@@ -1,0 +1,6 @@
+<template name="course-item">
+  <view>
+    <text class="tName">{{item.id}}</text>
+    <text class="tWorkTime">{{item.name}}</text>
+  </view>
+</template>

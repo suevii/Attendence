@@ -1,0 +1,7 @@
+/* pages/teacher/addCourse/addCourse.wxss */
+
+.input-sp-area{
+    margin: 0 auto;
+    margin-top: 50rpx;
+    width: 60%;
+}

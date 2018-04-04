@@ -24,7 +24,7 @@
             <input class="weui-input" placeholder="密码" password='true' bindinput='getPassword'/>
           </view>
         </view>
-        <button class='weui-btn' bindtap='loginClick' hover-class='login-hover'>登录</button>
+        <button class='weui-btn' bindtap='loginClick' type='primary'>登录</button>
       </view>
         
       

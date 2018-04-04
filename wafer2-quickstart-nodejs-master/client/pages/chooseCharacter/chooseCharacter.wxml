@@ -1,5 +1,7 @@
 <!--pages/chooseCharacter/chooseCharacter.wxml-->
-
+<!-- <button class="weui-btn" type="primary" plain="true" bindtap="testData">
+            test!!
+          </button> -->
 <view class="page">
   <view class='page__bd page__bd_spacing'>
     <view class="content">
