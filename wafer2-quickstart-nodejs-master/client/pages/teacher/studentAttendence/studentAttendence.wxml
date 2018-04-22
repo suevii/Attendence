@@ -1,9 +1,9 @@
 <!--pages/teacher/studentAttendence/studentAttendence.wxml-->
 <picker bindtap="picker_click" class="pWorkers-item" mode="date" value="{{date}}" start="2017-01-01" end="2020-12-30" bindchange="dateChange">
-  <view class="vDate">
-    <view class="vLabeldate">{{date}}</view>
-    <image src="/image/icons/down.png" mode="aspectFit"></image>
-  </view>
+    <view class="vDate">
+        <view class="vLabeldate">{{date}}</view>
+        <image src="/image/icons/down.png" mode="aspectFit"></image>
+    </view>
 </picker> 
 
 <view class="weui-cells weui-cells_after-title" wx:for="{{lists}}">
@@ -11,19 +11,19 @@
         <view class="weui-cell__bd">{{item.student_id}}</view>
         <view class="weui-cell__bd">{{item.name}}</view>
         <view class="weui-cell__bd" wx:if="{{item.if_attend == 1}}">
-          <icon type="success_no_circle" size="23"></icon>
+            <icon type="success_no_circle" size="23"></icon>
         </view>
         <!-- <view class="weui-cell__bd" wx:else>no</view> -->
         <!-- <view class="weui-cell__ft weui-cell__ft_in-access"></view> -->
     </view>
 </view>
 <block wx:if="{{lists.length == 0}}">
-  <view class="noquick">
-    <image src="/image/icons/noquick.png"></image>
-    <text>暂无学生</text>
-  </view>
+    <view class="noquick">
+        <image src="/image/icons/noquick.png"></image>
+        <text>暂无学生</text>
+    </view>
 </block>
-
+<button class="weui-btn" type="primary" plain="true" bindtap="doRecognition">识别</button>
 <!-- ,
   "tabBar": {
     "list": [

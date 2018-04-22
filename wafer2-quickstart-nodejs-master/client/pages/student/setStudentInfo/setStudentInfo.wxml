@@ -1,0 +1,16 @@
+<!--pages/student/setStudentInfo/setStudentInfo.wxml-->
+<form bindsubmit="addStudent" bindreset="formReset">
+    <view class="input-sp-area">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <input class="weui-input" placeholder="请输入学号" name="student_id"/>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <input class="weui-input" placeholder="请输入姓名" name="student_name"/>
+            </view>
+        </view>
+        <button class='weui-btn' formType="submit" type="primary" plain="true">确定</button>
+    </view>
+</form>

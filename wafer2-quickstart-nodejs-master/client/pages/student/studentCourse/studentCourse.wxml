@@ -1,0 +1,21 @@
+<!--pages/student/studentCourse/studentCourse.wxml-->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells__title"></view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">课程名</view>
+                <view class="weui-cell__ft">教师名</view>
+                <!-- {{item.id}}
+                {{item.name}} -->
+            </view>
+        </view>
+    </view>
+    <view class="button-sp-area">
+        <navigator url="../addCourse/addCourse" open-type="navigate">
+            <button class="weui-btn" type="primary" plain="true">
+                添加课程
+            </button>
+        </navigator>
+    </view>
+</view>

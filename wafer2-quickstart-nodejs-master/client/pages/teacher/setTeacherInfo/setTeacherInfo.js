@@ -1,25 +1,25 @@
-// pages/teacher/addCourse/addCourse.js
+// pages/teacher/teacherInfo/teacherInfo.js
 const app = getApp();
 var qcloud = require('../../../vendor/wafer2-client-sdk/index')
 var util = require('../../../utils/util.js')
-var config = require('../../../config.js')
+var config = require('../../../config')
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-  
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
 
-    addCourse: function(e) {
-        console.log("in addCourse: " + app.globalData.userInfo.openId);
+    },
+
+    addTeacher: function (e) { 
+        console.log(e.detail.value.teacher_name)
+        console.log(app.globalData.userInfo.openId)
         wx.request({
-            url: config.service.addCourseUrl,
+            url: config.service.addTeacherUrl,
             data: {
-                id: e.detail.value.course_id,
-                name: e.detail.value.course_name,
-                open_id: app.globalData.userInfo.openId
+                open_id: app.globalData.userInfo.openId,
+                name: e.detail.value.teacher_name
             },
             method: 'POST',
             header: {
@@ -33,9 +33,5 @@ Page({
         wx.redirectTo({
             url: '../teacherMain/teacherMain',
         })
-    },
-    formReset: function (e) {
-        console.log('form发生了reset事件')
-        util.showSuccess('重置成功');
     }
 })

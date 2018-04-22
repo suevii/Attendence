@@ -1,43 +1,60 @@
 <!--pages/student/uploadImage/uploadImage.wxml-->
-
-<!-- 用户登录测试 -->
-<view class="userinfo" bindtap="login">
-    <image
-        class="userinfo-avatar"
-        src="{{logged ? userInfo.avatarUrl : './user-unlogin.png'}}"
-        background-size="cover"
-    ></image>
-    <view>
-        <text class="userinfo-nickname">{{logged ? userInfo.nickName : '点击登录'}}</text>
-        <text class="userinfo-nickname" wx:if="{{logged}}">{{userInfo.lastLoginTime}}</text>
+<view class='page'>
+    <view class="page__bd">
+        <!-- <view class="weui-cells__title">未读数红点跟在主题信息后，统一在列表左侧</view> -->
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <image class="userinfo-avatar"
+                        src="{{logged ? userInfo.avatarUrl : './user-unlogin.png'}}"
+                        background-size="cover"
+                    />
+                    <!-- <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view> -->
+                </view>
+                <view class="weui-cell__bd">
+                    <view>{{student_name}}</view>
+                    <view style="font-size: 13px;color: #888888;">{{student_id}}</view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <view style="display: inline-block; vertical-align: middle">个人照片</view>
+                    <!-- <view class="weui-badge" style="margin-left: 5px;">8</view> -->
+                </view>
+                <view class="weui-cell__ft">已提交</view> 
+                <icon type="success_no_circle" style="margin-left: 5px" size="23"></icon>
+            </view>
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                            <view class="weui-uploader__title">重新提交照片</view>
+                            <view class="weui-badge" style="margin-left: 5px;">New</view>
+                            <!-- <view class="weui-uploader__info">{{files.length}}/2</view> -->
+                        </view>
+                        <block wx:for="{{files}}" wx:key="*this">
+                            <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                            </view>
+                        </block>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input" bindtap="detectFace"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <!-- <view class="weui-cell weui-cell_access"> -->
+                <navigator url="../studentCourse/studentCourse?student_id={{student_id}}"  open-type="navigate" class="weui-cell weui-cell_access" hover-class="weui-cell_active"> 
+                    <view class="weui-cell__bd">
+                        <view style="display: inline-block; vertical-align: middle">我的课程</view>
+                        <view class="weui-badge" style="margin-left: 5px;">8</view>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access">详细信息</view>
+                </navigator>
+            <!-- </view> -->
+            
+        </view>
     </view>
 </view>
-
-<view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-        <text>上传图片</text>
-    </view>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-        <image
-            class="uploader-image"
-            src="{{imgUrl}}"
-            mode="aspectFit"
-            bindtap="previewImg"
-        ></image>
-    </view>
-</view>
-<form bindsubmit="formSubmit" bindreset="formReset">
-  <view class="input-sp-area">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="学号" name="student_id" bindinput='getUsername'/>
-      </view>
-    </view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="姓名" name="student_name" bindinput='getPassword'/>
-      </view>
-    </view>
-    <button class='weui-btn' bindtap='' type="primary" plain="true">确定</button>
-  </view>
-</form>

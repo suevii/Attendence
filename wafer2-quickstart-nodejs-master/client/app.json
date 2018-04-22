@@ -1,27 +1,23 @@
 {
-  "pages": [
-    "pages/chooseCharacter/chooseCharacter",
+    "pages": [
+        "pages/chooseCharacter/chooseCharacter",
+        "pages/student/setStudentInfo/setStudentInfo",
+        "pages/teacher/setTeacherInfo/setTeacherInfo",
+        "pages/teacher/studentAttendence/studentAttendence",
         "pages/teacher/teacherMain/teacherMain",
-    
-
-    
-    "pages/student/uploadImage/uploadImage",
-    "pages/teacher/studentAttendence/studentAttendence",
-    
-    
-    "pages/teacher/courseDetail/courseDetail",
-    "pages/teacher/addCourse/addCourse",
-    "pages/teacher/login/login",
-    "pages/student/setInfo/setInfo",
-    "pages/index/index",
-    "pages/addCgi/addCgi"
-
-  ],
-  "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "人脸识别课堂考勤",
-    "navigationBarTextStyle": "black"
-  }
+        "pages/student/uploadImage/uploadImage",
+        "pages/teacher/courseDetail/courseDetail",
+        "pages/teacher/addCourse/addCourse",
+        "pages/teacher/login/login",
+        "pages/index/index",
+        "pages/addCgi/addCgi",
+        "pages/student/studentCourse/studentCourse"
+    ],
+    "window": {
+        "backgroundColor": "#F6F6F6",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#F6F6F6",
+        "navigationBarTitleText": "人脸识别课堂考勤",
+        "navigationBarTextStyle": "black"
+    }
 }

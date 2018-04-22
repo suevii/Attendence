@@ -4,9 +4,14 @@
 	"miniprogramRoot": "./client",
 	"qcloudRoot": "./server",
 	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
 		"newFeature": true
 	},
 	"appid": "wx76bd20718f92b115",
 	"projectname": "Attendence",
+	"compileType": "miniprogram",
 	"condition": {}
 }

@@ -1,9 +1,0 @@
-<!--pages/student/setInfo/setInfo.wxml-->
-<view class="uploader-container" wx:if="{{imgUrl}}">
-    <image
-        class="uploader-image"
-        src="{{imgUrl}}"
-        mode="aspectFit"
-        bindtap="previewImg"
-    ></image>
-</view>

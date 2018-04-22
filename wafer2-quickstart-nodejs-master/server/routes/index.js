@@ -37,9 +37,21 @@ router.post('/sinsert', controllers.mysql.sinsert)
 
 router.post('/addCourse', controllers.mysql.addCourse)
 
-router.get('/getCourseList', controllers.mysql.getCourseList)
+router.post('/addTeacher', controllers.mysql.addTeacher)
+router.post('/getStudent', controllers.mysql.getStudent)
+router.post('/addStudent', controllers.mysql.addStudent)
+
+router.post('/getUserInfo', controllers.mysql.getUserInfo)
+
+router.post('/getCourseList', controllers.mysql.getCourseList)
 
 router.post('/getStudentAttendence', controllers.mysql.getStudentAttendence)
 
 router.post('/getUserCharacter', controllers.mysql.getUserCharacter)
+
+router.post('/setUserCharacter', controllers.mysql.setUserCharacter)
+
+router.post('/getFaceOwner', controllers.mysql.getFaceOwner)
+
+router.post('/addFace', controllers.mysql.addFace)
 module.exports = router

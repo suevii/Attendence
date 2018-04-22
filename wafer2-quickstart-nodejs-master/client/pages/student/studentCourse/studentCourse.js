@@ -1,4 +1,4 @@
-// pages/student/setInfo/setInfo.js
+// pages/student/studentCourse/studentCourse.js
 Page({
 
   /**

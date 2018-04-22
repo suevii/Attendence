@@ -25,12 +25,24 @@ var config = {
 
         // addCourse
         addCourseUrl: `${host}/weapp/addCourse`,
-        //
+
+        getUserInfoUrl: `${host}/weapp/getUserInfo`,
+        
+        addTeacherUrl: `${host}/weapp/addTeacher`,
+        addStudentUrl: `${host}/weapp/addStudent`,
+        getStudentUrl: `${host}/weapp/getStudent`,
+        
         getCourseListUrl: `${host}/weapp/getCourseList`,
 
         getStudentAttendenceUrl: `${host}/weapp/getStudentAttendence`,
 
         getUserCharacterUrl: `${host}/weapp/getUserCharacter`,
+
+        setUserCharacterUrl: `${host}/weapp/setUserCharacter`,
+
+        getFaceOwnerUrl: `${host}/weapp/getFaceOwner`,
+
+        addFaceUrl: `${host}/weapp/addFace`,
 
         testUrl: `${host}/weapp/sinsert`
     }

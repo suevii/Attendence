@@ -1,41 +1,31 @@
 <!--pages/chooseCharacter/chooseCharacter.wxml-->
-<!-- <button class="weui-btn" type="primary" plain="true" bindtap="testData">
-            test!!
-          </button> -->
-<view class="page">
-  <view class='page__bd page__bd_spacing'>
-    <view class="content">
-      <view class="user-avatar-area">
-        <image class="user-avatar" src="/image/icons/staff.png"></image>
-      </view>
 
-      <view class="weui-msg">
-        <view class="weui-msg__text-area">
-          <view class="weui-msg__title">选择角色</view>
+<view class="page">
+    <view class='page__bd page__bd_spacing'>
+        <view class="content">
+            <view class="user-avatar-area">
+                <image class="user-avatar" src="/image/icons/staff.png"></image>
+            </view>
+            <view class="weui-msg">
+                <view class="weui-msg__text-area">
+                    <view class="weui-msg__title">选择身份</view>
+                </view>
+            </view>
+            <view class="button-sp-area">
+                <button class="weui-btn" type="primary" plain="true" bindtap="studentUser">
+                    我是学生
+                </button>
+                <button class="weui-btn" type="primary" plain="true" bindtap="teacherUser">
+                    我是教师
+                </button>
+            </view>
         </view>
-      </view>
-      
-      <view class="button-sp-area">
-        <navigator url="../student/uploadImage/uploadImage" open-type="navigate">
-          <button class="weui-btn" type="primary" plain="true">
-            我是学生
-          </button>
-        </navigator>
-        <navigator url="../teacher/login/login" open-type="navigate">
-          <button class="weui-btn" type="primary" plain="true">
-            我是教师
-          </button>
-        </navigator>
-      </view>
-      
     </view>
-      
-  </view>
+
     <view class='triangle1'></view>
     <view class='triangle2'></view>
     <view class='triangle3'></view>
     <view class='triangle4'></view>
     <view class='triangle5'></view>
     <view class='triangle6'></view>
-
 </view>
