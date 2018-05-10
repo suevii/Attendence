@@ -1,0 +1,93 @@
+<!--pages/student/studentMain/studentMain.wxml-->
+<view class='page'>
+    <view class="page__bd">
+        <!-- <view class="weui-cells__title">TODO:1. 只能传一张照片 2. “提交”按钮 3. 修改照片同时修改group里的facetoken</view>  -->
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <image class="userinfo-avatar"
+                        src="{{logged ? userInfo.avatarUrl : './user-unlogin.png'}}"
+                        background-size="cover"
+                    />
+                    <!-- <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view> -->
+                </view>
+                <view class="weui-cell__bd">
+                    <view>{{student_name}}</view>
+                    <view style="font-size: 13px;color: #888888;">{{student_id}}</view>
+                </view>
+                <view class="weui-cell__ft">
+                    <image src="../../../image/icons/edit.png" 
+                        style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"
+                        bindtap='editStudentInfo'
+                    />
+                </view>
+            </view>
+            <!--个人照片提交与否的信息  -->
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">个人照片</view> 
+                <view class="weui-cell__ft" wx:if="{{face_uploaded==true}}">
+                    已提交 
+                    <icon type="success_no_circle" style="margin-left: 5px" size="23"></icon>
+                </view>
+                <view class="weui-cell__ft" wx:else>
+                    未提交 
+                    <icon type="warn"  style="margin-left: 5px" size="23" color="#F43530"></icon>
+                </view>
+            </view>
+        </view>
+
+        <!--显示照片  -->
+        <view class="weui-cells__title">照片详情</view> 
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access"  wx:if="{{face_uploaded==true}}">
+                <view class="weui-uploader__bd">
+                    <view class="weui-uploader__file" bindtap="previewImage">
+                        <image class="weui-uploader__img" src="{{user_img_url}}" mode="aspectFill" />
+                    </view>
+                </view>
+            </view>
+            <!--提交照片区域（已上传则折叠）  -->
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader__title" wx:if="{{face_uploaded==true}}" bindtap='switchUploader'>重新提交照片</view>
+                    <view class="weui-uploader__title" wx:else>提交照片</view>
+                    <view class="weui-uploader" wx:if="{{show_uploader==true}}">
+                         <!-- <block wx:for="{{files}}" wx:key="*this">  -->
+                         <block wx:if="{{file_to_upload}}"> 
+                            <view class="weui-uploader__file" bindtap="previewImage" id="{{file_to_upload}}">
+                                <image class="weui-uploader__img" src="{{file_to_upload}}" mode="aspectFill" />
+                            </view>
+                        </block>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input" bindtap="setFaceInfo"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <!--查看我选过的课程  -->
+        <view class="weui-cells__title">我的课程</view> 
+        <view class="weui-cells weui-cells_after-title" wx:if="{{face_uploaded==true}}">
+            <!-- <navigator url="../studentCourse/studentCourse?student_id={{student_id}}&user_img_url={{user_img_url}}"  open-type="navigate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">  -->
+            <navigator url="../studentCourse/studentCourse?student_id={{student_id}}&user_face_token={{user_face_token}}"  open-type="navigate" class="weui-cell weui-cell_access" hover-class="weui-cell_active"> 
+                <view class="weui-cell__bd">
+                    <view style="display: inline-block; vertical-align: middle">查看课程</view>
+                    <!-- <view class="weui-badge" style="margin-left: 5px;">8</view> -->
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">详细信息</view>
+            </navigator>
+        </view>
+        <view class="weui-cells weui-cells_after-title" wx:else>
+            <view class="weui-cell">
+                <view class="weui-cell__bd">查看课程</view>
+                <view class="weui-cell__ft">
+                    请先上传照片后再添加课程！
+                    <icon type="warn"  style="margin-left: 5px" size="23" color="#F43530"></icon>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

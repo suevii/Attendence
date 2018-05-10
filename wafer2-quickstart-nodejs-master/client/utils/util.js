@@ -154,7 +154,18 @@ const formatTime = date => {
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+// 自己写的
+const generateNumber = date => {
+    const year = date.getFullYear().toString()
+    const month = (date.getMonth() + 1).toString()
+    const day = date.getDate().toString()
+    const hour = date.getHours().toString()
+    const minute = date.getMinutes().toString()
+    const second = date.getSeconds().toString()
 
+    return year + month + day + hour + minute + second
+}
+// 自己写的
 const formatDate = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -202,4 +213,4 @@ var showModel = (title, content) => {
     })
 }
 
-module.exports = { formatTime, formatDate, showBusy, showSuccess, showFailure,showModel }
+module.exports = { formatTime, formatDate, showBusy, showSuccess, showFailure, showModel, generateNumber }

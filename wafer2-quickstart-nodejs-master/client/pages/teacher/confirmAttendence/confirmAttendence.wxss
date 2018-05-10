@@ -1,4 +1,4 @@
-/* pages/teacher/courseDetail/courseDetail.wxss */
+/* pages/teacher/confirmAttendence/confirmAttendence.wxss */
 .pWorkers-item {
   height: 86rpx;
   background-color: #fafafa;

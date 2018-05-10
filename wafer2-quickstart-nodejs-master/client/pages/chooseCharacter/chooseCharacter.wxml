@@ -12,10 +12,10 @@
                 </view>
             </view>
             <view class="button-sp-area">
-                <button class="weui-btn" type="primary" plain="true" bindtap="studentUser">
+                <button class="weui-btn" type="primary" plain="true" bindtap="setUserCharacter" data-character="student">
                     我是学生
                 </button>
-                <button class="weui-btn" type="primary" plain="true" bindtap="teacherUser">
+                <button class="weui-btn" type="primary" plain="true" bindtap="setUserCharacter" data-character="teacher">
                     我是教师
                 </button>
             </view>

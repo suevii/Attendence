@@ -1,0 +1,58 @@
+<!--pages/teacher/confirmAttendence/confirmAttendence.wxml-->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    选择日期
+                </view>
+                <view class="weui-cell__ft">
+                    <picker class="weui-btn" mode="date" value="{{date}}" 
+                        start="2017-01-01" end="2020-12-30" bindchange="dateChange">
+                        {{date}}
+                        <image src="/image/icons/down.png" 
+                            style="vertical-align: middle;width:25rpx; height: 25rpx;" mode="aspectFit" 
+                        />
+                    </picker>
+                </view>
+            </view>
+        </view>
+        <!--识别出的学生列表  -->
+        <view class="weui-cells__title">识别出的学生</view>
+        <view class="weui-cells weui-cells_after-title" wx:for="{{recognized_student_info}}">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">{{item[0].student_id}}</view>
+                <view class="weui-cell__ft">
+                    {{item[0].name}}
+                    <image src="/image/icons/preview.png" data-url="{{item[0].img_url}}" style="margin-left: 5px;vertical-align: middle;width:20px; height: 20px;" bindtap='previewImage'></image>
+                </view>
+                
+            </view>
+        </view> 
+        <view class="weui-loadmore weui-loadmore_line" wx:if="{{recognized_student_info.length == 0}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line" style="background-color:#F8F8F8">未识别出学生</view>
+        </view>
+        <!--复选框  -->
+        <!-- <view class="weui-cells weui-cells_after-title">
+            <checkbox-group bindchange="checkboxChange">
+                <label class="weui-cell weui-check__label" wx:for="{{recognized_student_info}}" wx:key="value">
+                    <checkbox class="weui-check" value="{{index}}" checked="{{item.checked}}"/>
+
+                    <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                        <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+                        <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+                    </view>
+                    <view class="weui-cell__bd">{{item[0].student_id}}</view>
+                    <view class="weui-cell__ft">{{item[0].name}}</view>
+                </label>
+            </checkbox-group>
+        </view> -->
+        
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="default" bindtap="navigateBack" plain="true" wx:if="{{recognized_student_info.length == 0}}">返回</button>
+            <button class="weui-btn" type="primary" bindtap="confirmAttendence" wx:else>确定</button>
+            
+        </view>
+
+    </view>
+</view>

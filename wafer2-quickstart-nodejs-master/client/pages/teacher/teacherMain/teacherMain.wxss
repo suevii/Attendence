@@ -27,44 +27,12 @@
   /*transform: rotate(90deg);*/
 }
 
-.vWorkRecord {
-  border-bottom: 1rpx solid rgba(0, 0, 0, 0.12);
-  margin-left: 40rpx;
-  height: 132rpx;
-  display: flex;
-  align-items: center;
-}
-
-.pWorkers-item {
-  height: 86rpx;
-  background-color: #fafafa;
-  display: flex;
-  align-items: center;
-  border-bottom: 1rpx solid rgba(0, 0, 0, 0.12);
-}
-
-.vStaffData {
-  display: flex;
-  flex-direction: column;
-  margin-left: 20rpx;
-}
-
 .tName {
   height: 48rpx;
   line-height: 48rpx;
   font-size: 34rpx;
 }
 
-.tWorkTime {
-  height: 40rpx;
-  font-size: 28rpx;
-  color: rgba(0, 0, 0, 0.38);
-  margin: 0rpx 40rpx 0rpx 0rpx;
-}
-
-.tNoWorkTime {
-  margin: 0rpx auto 0rpx 20rpx;
-}
 
 .iHead {
   width: 100rpx;

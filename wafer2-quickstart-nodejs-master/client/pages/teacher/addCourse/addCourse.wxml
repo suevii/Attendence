@@ -1,17 +1,26 @@
 <!--pages/teacher/addCourse/addCourse.wxml-->
-<form bindsubmit="addCourse" bindreset="formReset">
-  <view class="input-sp-area">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="课程号" name="course_id"/>
-      </view>
+<view class="page">
+    <view class="page__bd page__bd_spacing">
+        <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{topTipContent}}</view>
+        <!-- 输入框 -->
+        <form bindsubmit="addCourse" bindreset="formReset">
+            <view class="input-sp-area">
+                <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <input class="weui-input" placeholder="课程号" name="course_id"/>
+                </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <input class="weui-input" placeholder="课程名" name="course_name"/>
+                </view>
+                </view>
+                <button class='weui-btn' formType="submit" type="primary" plain="true">提交并生成邀请码</button>
+                <view class="weui-footer">
+                    <view class="weui-footer__text">告知学生课程邀请码，加入课程！</view>
+                </view>
+                <button class='weui-btn' formType="reset" type="primary" plain="true">重置</button>
+            </view>
+        </form>
     </view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="课程名" name="course_name"/>
-      </view>
-    </view>
-    <button class='weui-btn' formType="submit" type="primary" plain="true">确定</button>
-    <button class='weui-btn' formType="reset" type="primary" plain="true">重置</button>
-  </view>
-</form>
+</view>

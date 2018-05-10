@@ -23,26 +23,50 @@ var config = {
         // 上传图片接口
         uploadUrl: `${host}/weapp/upload`,
 
+        // 公共
+        setUserCharacterUrl: `${host}/weapp/setUserCharacter`,
+        getUserCharacterUrl: `${host}/weapp/getUserCharacter`,
+        getUserInfoUrl: `${host}/weapp/getUserInfo`,
+
         // addCourse
         addCourseUrl: `${host}/weapp/addCourse`,
 
-        getUserInfoUrl: `${host}/weapp/getUserInfo`,
         
-        addTeacherUrl: `${host}/weapp/addTeacher`,
-        addStudentUrl: `${host}/weapp/addStudent`,
+        getFaceInfoUrl: `${host}/weapp/getFaceInfo`,
+        
+        
+        
         getStudentUrl: `${host}/weapp/getStudent`,
-        
+        getTeacherUrl: `${host}/weapp/getTeacher`,
+        // 教师
         getCourseListUrl: `${host}/weapp/getCourseList`,
+        getAttendListUrl: `${host}/weapp/getAttendList`,
+        addTeacherUrl: `${host}/weapp/addTeacher`,
+        alterTeacherUrl: `${host}/weapp/alterTeacher`,
 
-        getStudentAttendenceUrl: `${host}/weapp/getStudentAttendence`,
+        getInvitationCodeUrl: `${host}/weapp/getInvitationCode`,
+        getStudentNumberUrl: `${host}/weapp/getStudentNumber`,
+        deleteCourseUrl: `${host}/weapp/deleteCourse`,
+        
+        getStudentCourseListUrl: `${host}/weapp/getStudentCourseList`,
+        
+        
 
-        getUserCharacterUrl: `${host}/weapp/getUserCharacter`,
+        
 
-        setUserCharacterUrl: `${host}/weapp/setUserCharacter`,
+        
 
         getFaceOwnerUrl: `${host}/weapp/getFaceOwner`,
-
+        // 学生
+        addStudentUrl: `${host}/weapp/addStudent`,
+        alterStudentUrl: `${host}/weapp/alterStudent`,
         addFaceUrl: `${host}/weapp/addFace`,
+        addImgUrlUrl: `${host}/weapp/addImgUrl`,
+        setFaceInfoUrl: `${host}/weapp/setFaceInfo`,
+        searchCodeUrl: `${host}/weapp/searchCode`,
+        addStudentToCourseUrl: `${host}/weapp/addStudentToCourse`,
+
+        addAttendenceUrl: `${host}/weapp/addAttendence`,
 
         testUrl: `${host}/weapp/sinsert`
     }

@@ -1,10 +1,72 @@
 <!--pages/teacher/courseDetail/courseDetail.wxml-->
-<button class="weui-btn"  bindtap="onChooseImage" type="primary">上传照片</button>
-    <view class="" wx:if="{{imgUrl}}">
-        <image
-            class="uploader-image"
-            src="{{imgUrl}}"
-            mode="aspectFit"
-            bindtap="previewImg"
-        ></image>
+<view class='page'>
+    <view class="page__bd">
+        <!-- <view class="weui-cells__title">TODO: 1。只能传一张照片？2。出勤人数/总人数</view> -->
+        <!-- <button bindtap='getFaceList'>test</button> -->
+        <view class="weui-cells weui-cells_after-title">
+            <!-- 课程基本信息 -->
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <view>{{course_name}}</view>
+                    <view style="font-size: 13px;color: #888888;">{{course_id}}</view>
+                </view>
+            </view>
+        </view>
+        <!-- 邀请码  -->
+        <view class="weui-cells__title">课程邀请码</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">{{invitation_code}}</view>
+                <view class="weui-cell__ft">
+                    <icon type="info_circle" size="23" bindtap='showInvitationCodeHint'></icon>
+                </view>
+            </view>
+        </view>
+        <!--已加入学生数量  -->
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">已加入学生人数</view>
+                <view class="weui-cell__ft" style="margin-right:5rpx">{{student_number}}</view>
+                <view class="weui-cell__ft" style="color:black">人</view>
+            </view>
+        </view>
+        <!--提交照片区域  -->
+        <view class="weui-cells__title">上传照片（一张照片内人数少于10人）</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader__title">拍照考勤</view>
+                        <view class="weui-uploader__hd">
+                            
+                            <!-- <view class="weui-badge" style="margin-left: 5px;">New</view> -->
+                            <!-- <view class="weui-uploader__info">{{files.length}}/2</view> -->
+                        </view>
+                        <!--TODO:
+                        1。添加“提交”按钮，点了提交才能上传
+                          -->
+                        <block wx:for="{{files}}" wx:key="*this">
+                            <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                            </view>
+                        </block>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input" bindtap="doRecognition"></view>
+                            </view>
+                        </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <!--查看出勤记录  -->
+            <navigator url="../studentAttendence/studentAttendence?course_id={{course_id}}"  open-type="navigate" class="weui-cell weui-cell_access" hover-class="weui-cell_active"> 
+                <view class="weui-cell__bd">
+                    <view style="display: inline-block; vertical-align: middle">查看出勤记录</view>
+                    <!-- <view class="weui-badge" style="margin-left: 5px;">8</view> -->
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">详细信息</view>
+            </navigator>
+        </view>
+        <button class="weui-btn" type="warn" bindtap='deleteCourse'>删除课程</button>
     </view>
+</view>

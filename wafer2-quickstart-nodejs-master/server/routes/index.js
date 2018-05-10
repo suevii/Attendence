@@ -35,23 +35,50 @@ router.post('/message', controllers.message.post)
 //router.get('/demo', controllers.demo)
 router.post('/sinsert', controllers.mysql.sinsert)
 
-router.post('/addCourse', controllers.mysql.addCourse)
-
-router.post('/addTeacher', controllers.mysql.addTeacher)
-router.post('/getStudent', controllers.mysql.getStudent)
-router.post('/addStudent', controllers.mysql.addStudent)
-
-router.post('/getUserInfo', controllers.mysql.getUserInfo)
-
-router.post('/getCourseList', controllers.mysql.getCourseList)
-
-router.post('/getStudentAttendence', controllers.mysql.getStudentAttendence)
-
-router.post('/getUserCharacter', controllers.mysql.getUserCharacter)
-
+// 公共
 router.post('/setUserCharacter', controllers.mysql.setUserCharacter)
+router.post('/getUserCharacter', controllers.mysql.getUserCharacter)
+router.post('/getUserInfo', controllers.mysql.getUserInfo)
+// 教师端
+router.post('/addTeacher', controllers.teacherFunction.addTeacher)
+router.post('/alterTeacher', controllers.teacherFunction.alterTeacher)
+router.post('/getCourseList', controllers.teacherFunction.getCourseList)
+router.post('/addCourse', controllers.teacherFunction.addCourse)
+router.post('/getInvitationCode', controllers.teacherFunction.getInvitationCode)
 
-router.post('/getFaceOwner', controllers.mysql.getFaceOwner)
+router.post('/getStudentNumber', controllers.teacherFunction.getStudentNumber)
 
-router.post('/addFace', controllers.mysql.addFace)
+router.post('/getStudent', controllers.mysql.getStudent)
+// router.post('/getTeacher', controllers.mysql.getTeacher)
+router.post('/getFaceOwner', controllers.teacherFunction.getFaceOwner)
+router.delete('/deleteCourse', controllers.teacherFunction.deleteCourse)
+router.post('/addAttendence', controllers.teacherFunction.addAttendence)
+router.post('/getAttendList', controllers.teacherFunction.getAttendList)
+// 学生端
+router.post('/addStudent', controllers.studentFunction.addStudent)
+router.post('/alterStudent', controllers.studentFunction.alterStudent)
+router.post('/getFaceInfo', controllers.studentFunction.getFaceInfo)
+router.post('/searchCode', controllers.studentFunction.searchCode)
+router.post('/addStudentToCourse', controllers.studentFunction.addStudentToCourse)
+router.post('/getStudentCourseList', controllers.studentFunction.getStudentCourseList)
+router.post('/addFace', controllers.studentFunction.addFace)
+// router.post('/addImgUrl', controllers.studentFunction.addImgUrl)
+router.post('/setFaceInfo', controllers.studentFunction.setFaceInfo)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = router
