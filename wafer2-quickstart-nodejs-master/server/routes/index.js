@@ -61,9 +61,10 @@ router.post('/getFaceInfo', controllers.studentFunction.getFaceInfo)
 router.post('/searchCode', controllers.studentFunction.searchCode)
 router.post('/addStudentToCourse', controllers.studentFunction.addStudentToCourse)
 router.post('/getStudentCourseList', controllers.studentFunction.getStudentCourseList)
-router.post('/addFace', controllers.studentFunction.addFace)
+router.post('/getStudentAttendDate', controllers.studentFunction.getStudentAttendDate)
 // router.post('/addImgUrl', controllers.studentFunction.addImgUrl)
 router.post('/setFaceInfo', controllers.studentFunction.setFaceInfo)
+router.post('/alterFaceInfo', controllers.studentFunction.alterFaceInfo)
 
 
 

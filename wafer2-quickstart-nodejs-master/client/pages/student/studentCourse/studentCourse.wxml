@@ -20,13 +20,32 @@
             <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
         </view>
         <!--课程列表  -->
+        <view class="weui-cells__title">点击<image src="/image/icons/magnifyingglass.png" style="margin-left: 5rpx; margin-right: 5rpx; vertical-align: middle;width:30rpx; height: 30rpx;"></image>可查看出勤记录
+        </view>
         <view class="weui-cells weui-cells_after-title" wx:for="{{studentCourseList}}">
             <view class="weui-cell">
-                <view class="weui-cell__bd">{{item.course_name}}</view>
+                <view class="weui-cell__bd">
+                    {{item.course_name}}
+                    <image src="/image/icons/magnifyingglass.png" data-selectid="{{item.select_id}}" style="margin-left: 5rpx;vertical-align: middle;width:40rpx; height: 40rpx;" bindtap='getStudentAttendDate'></image>
+                </view>
                 <view class="weui-cell__ft">{{item.teacher_name}}</view>
-                <!-- {{item.id}}
-                {{item.name}} -->
+            </view>
+            <view wx:if="{{item.open == true && attendDateList.length != 0}}">
+                <view class="weui-cell" wx:for="{{attendDateList}}">
+                    <view class="weui-cell__bd" >{{item.attend_date}}</view>
+                </view> 
+            </view>
+            <view wx:elif="{{item.open == true && attendDateList.length == 0}}">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">暂无出勤记录</view>
+                </view> 
             </view>
         </view>
+        <block wx:if="{{studentCourseList.length == 0}}">
+            <view class="noquick">
+                <image src="/image/icons/noquick.png"></image>
+                <text>暂无课程</text>
+            </view>
+        </block>
     </view>
 </view>

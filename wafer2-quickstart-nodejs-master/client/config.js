@@ -48,7 +48,7 @@ var config = {
         getStudentNumberUrl: `${host}/weapp/getStudentNumber`,
         deleteCourseUrl: `${host}/weapp/deleteCourse`,
         
-        getStudentCourseListUrl: `${host}/weapp/getStudentCourseList`,
+        
         
         
 
@@ -63,6 +63,9 @@ var config = {
         addFaceUrl: `${host}/weapp/addFace`,
         addImgUrlUrl: `${host}/weapp/addImgUrl`,
         setFaceInfoUrl: `${host}/weapp/setFaceInfo`,
+        alterFaceInfoUrl: `${host}/weapp/alterFaceInfo`,
+        getStudentCourseListUrl: `${host}/weapp/getStudentCourseList`,
+        getStudentAttendDateUrl: `${host}/weapp/getStudentAttendDate`,
         searchCodeUrl: `${host}/weapp/searchCode`,
         addStudentToCourseUrl: `${host}/weapp/addStudentToCourse`,
 

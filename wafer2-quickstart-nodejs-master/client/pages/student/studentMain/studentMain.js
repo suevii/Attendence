@@ -151,8 +151,7 @@ Page({
     setFaceInfo: function () {
         console.log("in setFaceInfo")
         var that = this
-        var face_uploaded = this.data.face_uploaded,
-            access_token = app.globalData.access_token;
+        var access_token = app.globalData.access_token;
         var detect_url = "https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=" + access_token;
         wx.chooseImage({
             count: 1,
@@ -251,26 +250,155 @@ Page({
         })
     },
 
-    // 预览图片
-    // previewImg: function () {
-    //     wx.previewImage({
-    //         current: this.data.imgUrl,
-    //         urls: [this.data.imgUrl]
-    //     })
-    // },
-    // chooseImage: function (e) {
-    //     var that = this;
-    //     wx.chooseImage({
-    //         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-    //         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-    //         success: function (res) {
-    //             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-    //             that.setData({
-    //                 files: that.data.files.concat(res.tempFilePaths)
-    //             });
-    //         }
-    //     })
-    // },
+    alterFaceInfo: function () {
+        console.log("in alterFaceInfo")
+        var that = this
+        var access_token = app.globalData.access_token;
+        var detect_url = "https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=" + access_token,
+            update_url = "https://aip.baidubce.com/rest/2.0/face/v3/faceset/user/update?access_token=" + access_token;
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],
+            sourceType: ['album', 'camera'],
+            success: function (res) {
+                util.showBusy('正在上传')
+                var filePath = res.tempFilePaths[0]
+                that.setData({
+                    file_to_upload: filePath
+                });
+                wx.uploadFile({
+                    url: config.service.uploadUrl,
+                    filePath: filePath,
+                    name: 'file',
+                    success: function (res) {
+                        console.log(res)
+                        // 这里就是要parse:)
+                        res = JSON.parse(res.data)
+                        that.setData({
+                            imgUrl: res.data.imgUrl,
+                        })
+                        var personalImgUrl = that.data.imgUrl
+                        // 生成face_token
+                        wx.request({
+                            url: detect_url,
+                            header: {
+                                'content-type': 'application/json'
+                            },
+                            data: {
+                                'image': personalImgUrl,
+                                'image_type': 'URL',
+                                'face_field': 'quality',
+                            },
+                            method: 'POST',
+                            success: function (res) {
+                                console.log("detect face success")
+                                console.log(res)
+                                if (res.data.error_code == 0) {
+                                    var face_token = res.data.result.face_list[0].face_token,
+                                        quality = res.data.result.face_list[0].quality;
+                                    if (quality.blur > 0.7 && quality.illumination < 40) {
+                                        wx.showModal({
+                                            title: '请重新上传照片',
+                                            content: '照片清晰度或亮度不符合要求！',
+                                        })
+                                    } else {
+                                        /**
+                                         * 1. 修改face表中的数据
+                                         * 2. 获取学生选课的invitation_code
+                                         * 3. update所有facecet
+                                         */
+                                        wx.request({
+                                            url: config.service.alterFaceInfoUrl,
+                                            header: {
+                                                'content-type': 'application/json'
+                                            },
+                                            data: {
+                                                "img_url": personalImgUrl,
+                                                "student_open_id": app.globalData.userInfo.openId,
+                                                "face_token": face_token
+                                            },
+                                            method: 'POST',
+                                            success: function (e) {
+                                                console.log(e)
+                                                if (e.data.code == 0) {
+                                                    console.log("alter face success")
+                                                    wx.request({
+                                                        url: config.service.getStudentCourseListUrl,
+                                                        method: 'POST',
+                                                        header: {
+                                                            'content-type': 'application/json'
+                                                        },
+                                                        data: {
+                                                            student_open_id: app.globalData.userInfo.openId
+                                                        },
+                                                        success: function (res) {
+                                                            console.log("getStudentCourseList success")
+                                                            console.log(res)
+                                                            var len = res.data.data[0].length
+                                                            if (len != 0) {
+                                                                for (var i = 0; i < len; i++) {
+                                                                    var current_invitation_code = res.data.data[0][i].invitation_code;
+                                                                    wx.request({
+                                                                        url: update_url,
+                                                                        method: 'POST',
+                                                                        header: {
+                                                                            'content-type': 'application/json'
+                                                                        },
+                                                                        data: {
+                                                                            'image': face_token,
+                                                                            'image_type': 'FACE_TOKEN',
+                                                                            'user_id': that.data.student_id,
+                                                                            'user_info': face_token,
+                                                                            'group_id': current_invitation_code,
+
+                                                                        },
+                                                                        success: function (res) {
+                                                                            console.log("update facecet success")
+                                                                            console.log(res)
+                                                                            if (i >= len){
+                                                                                util.showSuccess('上传图片成功')
+                                                                                wx.redirectTo({
+                                                                                    url: '../studentMain/studentMain',
+                                                                                })
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    console.log("未知错误")
+                                                }
+                                            },
+                                            fail: function (e) {
+                                                console.log("alter face fail")
+                                                console.log(e.data)
+                                            }
+                                        })
+                                    }
+                                }
+
+                            },
+                            fail: function (res) {
+                                console.log("detect face fail")
+                                console.log(res.data)
+                            }
+                        });
+
+                    },
+                    fail: function (e) {
+                        util.showModel('上传图片失败')
+                    }
+                })
+
+            },
+            fail: function (e) {
+                console.error(e)
+            }
+        })
+    },
+
     previewImage: function (e) {
         wx.previewImage({
             urls: [this.data.user_img_url] // 需要预览的图片http链接列表

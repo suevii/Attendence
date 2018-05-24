@@ -1,16 +1,32 @@
 <!--pages/student/setStudentInfo/setStudentInfo.wxml-->
-<form bindsubmit="addStudent" bindreset="formReset">
-    <view class="input-sp-area">
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-                <input class="weui-input" placeholder="请输入学号" name="student_id"/>
+<view class="page">
+    <view class='page__bd page__bd_spacing'>
+        <view class="content">
+            <view class="user-avatar-area">
+                <image class="user-avatar" src="/image/icons/staff.png"></image>
             </view>
-        </view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-                <input class="weui-input" placeholder="请输入姓名" name="student_name"/>
+            <view class="weui-msg">
+                <view class="weui-msg__text-area">
+                    <view class="weui-msg__title" wx:if="{{if_first_time==true}}">设置个人信息</view>
+                    <view class="weui-msg__title" wx:else>修改个人信息</view>
+                </view>
             </view>
+            <form bindsubmit="addStudent" bindreset="formReset">
+                <view class="input-sp-area">
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell weui-cell_input">
+                            <input class="weui-input" placeholder="请输入学号" name="student_id"/>
+                        </view>
+                    </view>
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell weui-cell_input">
+                            <input class="weui-input" placeholder="请输入姓名" name="student_name"/>
+                        </view>
+                    </view>
+                    <button class='weui-btn' formType="submit" type="primary" plain="true">确定</button>
+                </view>
+            </form>
         </view>
-        <button class='weui-btn' formType="submit" type="primary" plain="true">确定</button>
     </view>
-</form>
+</view>
+

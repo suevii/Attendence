@@ -1,24 +1,26 @@
 <!--pages/teacher/addCourse/addCourse.wxml-->
 <view class="page">
+    <view class="page__hd">
+        <view class="page__title">提示</view> 
+        <view class="page__desc">1.若同一课程开设在不同时间，请用课程名区分，如：形势与政策5-6、形势与政策7-8</view>
+        <view class="page__desc">2.告知学生课程邀请码，加入课程！</view>
+    </view>
     <view class="page__bd page__bd_spacing">
         <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{topTipContent}}</view>
         <!-- 输入框 -->
         <form bindsubmit="addCourse" bindreset="formReset">
             <view class="input-sp-area">
                 <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input">
-                    <input class="weui-input" placeholder="课程号" name="course_id"/>
-                </view>
+                    <view class="weui-cell weui-cell_input">
+                        <input class="weui-input" placeholder="课程号" name="course_id"/>
+                    </view>
                 </view>
                 <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input">
-                    <input class="weui-input" placeholder="课程名" name="course_name"/>
-                </view>
+                    <view class="weui-cell weui-cell_input">
+                        <input class="weui-input" placeholder="课程名" name="course_name"/>
+                    </view>
                 </view>
                 <button class='weui-btn' formType="submit" type="primary" plain="true">提交并生成邀请码</button>
-                <view class="weui-footer">
-                    <view class="weui-footer__text">告知学生课程邀请码，加入课程！</view>
-                </view>
                 <button class='weui-btn' formType="reset" type="primary" plain="true">重置</button>
             </view>
         </form>

@@ -4,21 +4,19 @@
     <view class='page__bd page__bd_spacing'>
         <view class="content">
             <view class="user-avatar-area">
-                <image class="user-avatar" src="/image/icons/eye.png"></image>
+                <image class="user-avatar" src="/image/icons/staff.png"></image>
             </view>
             <view class="weui-msg">
                 <view class="weui-msg__text-area">
-                    <!-- <button wx:if="{{authorized==false}}"class="weui-btn" type="primary" plain="true" open-type="getUserInfo" size="mini">同意授权</button> -->
+                    <button wx:if="{{authorized==false}}"class="weui-btn" type="primary" plain="true" open-type="getUserInfo" size="mini">同意授权</button>
                     <view class="weui-msg__title">选择身份</view>
                 </view>
             </view>
             <view class="button-sp-area">
-                <!-- <button class="weui-btn" disabled="{{authorized? 'false':'true'}}" type="primary" plain="true" bindtap="setUserCharacter" data-character="student"> -->
-                <button class="weui-btn" type="primary" plain="true" bindtap="setUserCharacter" data-character="student">
+                <button class="weui-btn" disabled="{{authorized? 'false':'true'}}" type="primary" plain="true" bindtap="setUserCharacter" data-character="student">
                     我是学生
                 </button>
-                <!-- <button class="weui-btn" disabled="{{authorized? 'false':'true'}}" type="primary" plain="true" bindtap="setUserCharacter" data-character="teacher"> -->
-                <button class="weui-btn" type="primary" plain="true" bindtap="setUserCharacter" data-character="teacher">
+                <button class="weui-btn" disabled="{{authorized? 'false':'true'}}" type="primary" plain="true" bindtap="setUserCharacter" data-character="teacher">
                     我是教师
                 </button>
             </view>

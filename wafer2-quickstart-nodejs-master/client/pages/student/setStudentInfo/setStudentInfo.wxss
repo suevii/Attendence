@@ -1,1 +1,12 @@
 /* pages/student/setStudentInfo/setStudentInfo.wxss */
+.user-avatar-area {
+    margin: 0 auto;
+    text-align: center;
+}
+.user-avatar {
+    width: 162rpx;
+    height: 162rpx;
+    margin-top: 80rpx;
+    border-radius: 50%;
+    overflow: hidden;
+}

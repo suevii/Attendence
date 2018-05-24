@@ -27,7 +27,7 @@ module.exports = {
         ctx.state.data = res;
         console.log(res);
     },
-    // 获取我的课程列表
+    // 获取教师课程列表
     getCourseList: async (ctx, next) => {
         console.log("in getCourseList");
         var teacher_open_id = ctx.request.body.open_id;
@@ -39,37 +39,39 @@ module.exports = {
     addCourse: async (ctx, next) => {
         console.log("in addCourse");
         var id = ctx.request.body.id,
-            teacher_open_id = ctx.request.body.teacher_open_id;
-        var res1 = await mysql(COURSE_TABLE).select('*').where({ id: id, teacher_open_id: teacher_open_id });
+            teacher_open_id = ctx.request.body.teacher_open_id,
+            course_name = ctx.request.body.course_name,
+            date = ctx.request.body.date;
+        var res1 = await mysql(COURSE_TABLE).select('*').where({ id: id, course_name: course_name, teacher_open_id: teacher_open_id });
         if (res1.length != 0){
             ctx.state.code = 100
-            ctx.state.data = "已添加过该课程！"
+            ctx.state.data = "课程已存在！"
         } else {
+            var res2 = await mysql(COURSE_TABLE).max('course_open_id');
+            var course_open_id = res2[0]['max(`course_open_id`)'] + 1;
+            var invitation_code = course_open_id + date;
             var courseInfo = {
+                course_open_id: course_open_id,
                 id: ctx.request.body.id,
                 course_name: ctx.request.body.course_name,
                 teacher_open_id: ctx.request.body.teacher_open_id,
-                invitation_code: ctx.request.body.invitation_code
+                invitation_code: invitation_code
             };
             var res = await mysql(COURSE_TABLE).insert(courseInfo);
-            ctx.state.data = res;
-            console.log(res);
+            ctx.state.data = invitation_code;
         }
-    }, 
+    },
     getInvitationCode: async (ctx, next) => {
         console.log("in getInvitationCode");
-        var teacher_open_id = ctx.request.body.teacher_open_id,
-            course_id = ctx.request.body.course_id;
-        var res = await mysql(COURSE_TABLE).select('*').where({ teacher_open_id: teacher_open_id, id: course_id });
+        var course_open_id = ctx.request.body.course_open_id;
+        var res = await mysql(COURSE_TABLE).select('*').where({ course_open_id: course_open_id });
         ctx.state.data = res;
         console.log(res);
     },
     getStudentNumber: async (ctx, next) => {
         console.log("in getStudentNumber");
-        var table_name = 'select_info';
-        let teacher_open_id = ctx.request.body.teacher_open_id;
-        var course_id = ctx.request.body.course_id;
-        var res = await mysql.raw('select count(select_id) as student_number from select_info as sl where sl.teacher_open_id=? and sl.course_id=?', [teacher_open_id, course_id]);
+        var course_open_id = ctx.request.body.course_open_id;
+        var res = await mysql.raw('select count(select_id) as student_number from select_info as sl where sl.course_open_id=?', [course_open_id]);
         ctx.state.data = res;
         console.log(res);
     },
@@ -94,10 +96,9 @@ module.exports = {
 
     deleteCourse: async (ctx, next) => {
         console.log("in deleteCourse");
-        let teacher_open_id = ctx.request.body.teacher_open_id;
-        var course_id = ctx.request.body.course_id;
+        var course_open_id = ctx.request.body.course_open_id;
         // 此处数据库自动级联删除select_info
-        var res = await mysql(COURSE_TABLE).where({ teacher_open_id: teacher_open_id, id: course_id }).del();
+        var res = await mysql(COURSE_TABLE).where({ course_open_id: course_open_id }).del();
         ctx.state.data = res;
         console.log(res);
     },

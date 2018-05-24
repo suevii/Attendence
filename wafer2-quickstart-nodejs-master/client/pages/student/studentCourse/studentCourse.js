@@ -42,6 +42,9 @@ Page({
             success: function (res) {
                 console.log("getStudentCourseList success")
                 console.log(res)
+                for(var i = 0; i <res.data.data[0].length; i ++){
+                    res.data.data[0][i]["open"] == false
+                }
                 that.setData({
                     studentCourseList: res.data.data[0]
                 });
@@ -78,7 +81,8 @@ Page({
                         });
                     }, 3000);
                 } else {
-                    var course_id = res.data.data[0].id,
+                    var course_open_id = res.data.data[0].course_open_id,
+                        course_id = res.data.data[0].id,
                         course_name = res.data.data[0].course_name,
                         teacher_name = res.data.data[0].name,
                         teacher_open_id = res.data.data[0].teacher_open_id;
@@ -89,7 +93,7 @@ Page({
                         success: function (res) {
                             if (res.confirm) {
                                 console.log('用户点击确定')
-                                that.addStudentToCourse(course_id, teacher_open_id, invitation_code)
+                                that.addStudentToCourse(course_open_id, course_id, teacher_open_id, invitation_code)
                             } else if (res.cancel) {
                                 console.log('用户点击取消')
                             }
@@ -99,7 +103,7 @@ Page({
             }
         });
     },
-    addStudentToCourse: function (course_id, teacher_open_id, invitation_code) {
+    addStudentToCourse: function (course_open_id, course_id, teacher_open_id, invitation_code) {
         console.log("in addStudentToCourse")
         var that = this
         var student_open_id = app.globalData.userInfo.openId,
@@ -115,7 +119,7 @@ Page({
                 'image': that.data.user_face_token,
                 'image_type': 'FACE_TOKEN',
                 'group_id': invitation_code,
-                'user_id': that.data.user_face_token,
+                'user_id': that.data.student_id,
                 'user_info': student_open_id
             },
             method: 'POST',
@@ -128,6 +132,7 @@ Page({
                         'content-type': 'application/json'
                     },
                     data: {
+                        course_open_id: course_open_id,
                         course_id: course_id,
                         teacher_open_id: teacher_open_id,
                         student_open_id: student_open_id
@@ -149,54 +154,42 @@ Page({
 
         })
     },
-    // addStudentToCourse_microsoft: function (course_id, teacher_open_id, invitation_code){
-    //     console.log("in addStudentToCourse")
-    //     var that = this
-    //     var student_open_id = app.globalData.userInfo.openId;
-    //     var addToFaceListUrl = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/facelists/" + invitation_code + "/persistedFaces"
-    //     wx.request({
-    //         // add face to facelist
-    //         url: addToFaceListUrl,
-    //         header: {
-    //             'content-type': 'application/json',
-    //             'Ocp-Apim-Subscription-Key': app.globalData.apiKey
-    //         },
-    //         data: {
-    //             'url': that.data.user_img_url
-    //         },
-    //         method: 'POST',
-    //         success: function(res){
-    //             console.log(res)
-    //             var persisted_face_id = res.data.persistedFaceId
-    //             wx.request({
-    //                 url: config.service.addStudentToCourseUrl,
-    //                 method: 'POST',
-    //                 header: {
-    //                     'content-type': 'application/json'
-    //                 },
-    //                 data: {
-    //                     course_id: course_id,
-    //                     teacher_open_id: teacher_open_id,
-    //                     student_open_id: student_open_id,
-    //                     persisted_face_id: persisted_face_id
-    //                 },
-    //                 success: function (res) {
-    //                     console.log("addStudentToCourse result: ")
-    //                     console.log(res)
-    //                     wx.showToast({
-    //                         title: '加入课程成功',
-    //                         icon: 'success',
-    //                         duration: 3000,
-    //                         success: function(){
-    //                             that.getStudentCourseList()
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //         }
-            
-    //     })
-    // },
+    getStudentAttendDate: function(e){
+        console.log("in getStudentAttendDate")
+        var that = this, 
+            select_id = e.currentTarget.dataset.selectid,
+            list = this.data.studentCourseList;
+        for (var i = 0, len = list.length; i < len; i++) {
+            if (list[i].select_id == select_id) {
+                list[i].open = !list[i].open
+            } else {
+                list[i].open = false
+            }
+        }
+        this.setData({
+            studentCourseList: list
+        });
+        wx.request({
+            url: config.service.getStudentAttendDateUrl,
+            method: 'POST',
+            header: {
+                'content-type': 'application/json'
+            },
+            data: {
+                select_id: select_id
+            },
+            success: function (res) {
+                console.log("getStudentAttendDate success")
+                console.log(res)
+                for(var i = 0; i < res.data.data.length; i ++){
+                    res.data.data[i].attend_date = res.data.data[i].attend_date.substring(0,10)
+                }
+                that.setData({
+                    attendDateList: res.data.data
+                })
+            }
+        });
+    },
     showInput: function () {
         this.setData({
             inputShowed: true

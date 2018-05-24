@@ -5,6 +5,7 @@ var config = require('../../../config')
 Page({
     data: {
         // recognized_student: [],         // 前一页面传递过来的face_id
+        photo_url: "",
         recognized_student_open_id: [],
         recognized_student_info: [],    // 用student_open_id获取的学生具体信息
         select_id: [],                   // select_info表的select_id
@@ -15,7 +16,7 @@ Page({
         this.setData({
             date: date,
             course_id: options.course_id,
-            // recognized_student: JSON.parse(options.recognized_student)
+            photo_url: options.photo_url,
             recognized_student_open_id: JSON.parse(options.recognized_student_open_id)
         });
     },
@@ -43,12 +44,17 @@ Page({
             success: function (res) {
                 console.log("in showRecognitionResult")
                 console.log(res)
+                for (var i = 0; i < res.data.data.length; i++) {
+                    if (res.data.data[i].length != 0)
+                        res.data.data[i][0]['open'] = false;
+                }
                 that.setData({
                     recognized_student_info: res.data.data
                 })
                 console.log(that.data.recognized_student_info)
             }
         })
+        console.log(this.data.recognized_student_info)
     },
     
     // 点击【确定】
@@ -99,34 +105,28 @@ Page({
         })
     },
 
-
-    checkboxChange: function (e) {
-        var confirmed_student = this.data.recognized_student_info;
-        console.log('checkbox发生change事件，携带value值为：', e.detail.value);
-
-        // var checkboxItems = this.data.checkboxItems, values = e.detail.value;
-        // for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
-        //     checkboxItems[i].checked = false;
-
-        //     for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-        //         if (checkboxItems[i].value == values[j]) {
-        //             checkboxItems[i].checked = true;
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // this.setData({
-        //     checkboxItems: checkboxItems
-        // });
-    },
-
     dateChange: function (event) {
         console.log("in date change")
         console.log(event.detail.value)
         this.setData({
             date: event.detail.value,
         })
+    },
+    showImage: function (e) {
+        console.log("in showImage")
+        var img_url = e.currentTarget.dataset.url, list = this.data.recognized_student_info;
+        for (var i = 0, len = list.length; i < len; i++) {
+            if (list[i].length != 0 ){
+                if(list[i][0].img_url == img_url) {
+                    list[i][0].open = !list[i][0].open
+                } else {
+                    list[i][0].open = false
+                }
+            }
+        }
+        this.setData({
+            recognized_student_info: list
+        });
     },
     previewImage: function (e) {
         var img_url = e.currentTarget.dataset.url

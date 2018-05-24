@@ -6,6 +6,7 @@ var config = require('../../../config')
 Page({
 
     data: {
+        course_open_id: '',
         course_id: '',
         course_name: '',
         invitation_code: '',
@@ -17,11 +18,11 @@ Page({
 
     onLoad: function (options) {
         this.setData({
+            course_open_id: options.course_open_id,
             course_id: options.course_id,
             course_name: options.course_name,
         });
-        this.getStudentNumber();
-        this.getInvitationCode();
+        this.getInitData();
         console.log("course_id: " + this.data.course_id)
         console.log("course_name: " + this.data.course_name)
     },
@@ -32,15 +33,19 @@ Page({
         })
     },
 
-    getInvitationCode: function () {
+    getInitData: function () {
+        // 1. get invitation code
+        // 2. get student number
         var that = this
         console.log("in getInvitationCode...");
         wx.request({
             url: config.service.getInvitationCodeUrl,
             method: 'POST',
             data: {
-                course_id: that.data.course_id,
-                teacher_open_id: app.globalData.userInfo.openId
+                course_open_id: that.data.course_open_id
+                // course_id: that.data.course_id,
+                // course_name: that.data.course_name,
+                // teacher_open_id: app.globalData.userInfo.openId
             },
             header: {
                 'content-type': 'application/json'
@@ -48,8 +53,10 @@ Page({
             success: function (res) {
                 console.log(res);
                 that.setData({
-                    invitation_code: res.data.data[0].invitation_code
+                    invitation_code: res.data.data[0].invitation_code,
+                    course_open_id: res.data.data[0].course_open_id
                 })
+                that.getStudentNumber();
             }
         });
     },
@@ -60,8 +67,9 @@ Page({
             url: config.service.getStudentNumberUrl,
             method: 'POST',
             data: {
-                course_id: that.data.course_id,
-                teacher_open_id: app.globalData.userInfo.openId
+                course_open_id: that.data.course_open_id
+                //course_id: that.data.course_id,
+                //teacher_open_id: app.globalData.userInfo.openId
             },
             header: {
                 'content-type': 'application/json'
@@ -194,7 +202,7 @@ Page({
                                                         if (count == face_list.length) {
                                                             console.log("最后一个")
                                                             wx.navigateTo({
-                                                                url: '../confirmAttendence/confirmAttendence?course_id=' + that.data.course_id + '&recognized_student_open_id=' + JSON.stringify(recognized_student_open_id),
+                                                                url: '../confirmAttendence/confirmAttendence?photo_url=' + detect_img_url + '&course_id=' + that.data.course_id + '&recognized_student_open_id=' + JSON.stringify(recognized_student_open_id),
                                                             })
                                                         }
                                                     }
@@ -227,8 +235,9 @@ Page({
                         url: config.service.deleteCourseUrl,
                         method: 'DELETE',
                         data: {
-                            course_id: that.data.course_id,
-                            teacher_open_id: app.globalData.userInfo.openId
+                            course_open_id: that.data.course_open_id
+                            // course_id: that.data.course_id,
+                            // teacher_open_id: app.globalData.userInfo.openId
                         },
                         header: {
                             'content-type': 'application/json'
@@ -237,28 +246,33 @@ Page({
                             console.log("After deleteCourse");
                             console.log(res);
                             // delete faceList
-                            wx.request({
-                                url: delete_face_group_url,
-                                method: 'POST',
-                                header: {
-                                    'content-type': 'application/json'
-                                },
-                                data: {
-                                    'group_id': that.data.invitation_code
-                                },
-                                success: function (res) {
-                                    console.log("删除face group成功");
-                                    console.log(res);
-                                    wx.showToast({
-                                        title: '正在删除',
-                                        icon: 'loading',
-                                        duration: 2000
-                                    });
-                                    wx.redirectTo({
-                                        url: '../teacherMain/teacherMain',
-                                    })
-                                }
-                            });
+                            if(res.data.code == 0){
+                                wx.request({
+                                    url: delete_face_group_url,
+                                    method: 'POST',
+                                    header: {
+                                        'content-type': 'application/json'
+                                    },
+                                    data: {
+                                        'group_id': that.data.invitation_code
+                                    },
+                                    success: function (res) {
+                                        console.log("删除face group成功");
+                                        console.log(res);
+                                        wx.showToast({
+                                            title: '正在删除',
+                                            icon: 'loading',
+                                            duration: 2000
+                                        });
+                                        wx.redirectTo({
+                                            url: '../teacherMain/teacherMain',
+                                        })
+                                    }
+                                });
+                            }else{
+                                console.log("删除课程失败")
+                            }
+                            
                         }
                     });
                 } else {
