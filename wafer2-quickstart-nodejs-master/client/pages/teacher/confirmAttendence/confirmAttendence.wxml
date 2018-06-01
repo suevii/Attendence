@@ -41,15 +41,14 @@
                 </view>
             </view>
         </view> 
+        
         <view class="weui-loadmore weui-loadmore_line" wx:if="{{recognized_student_info.length == 0}}">
             <view class="weui-loadmore__tips weui-loadmore__tips_in-line" style="background-color:#F8F8F8">未识别出学生</view>
         </view>
-        
+    
         <view class="weui-btn-area">
             <button class="weui-btn" type="default" bindtap="navigateBack" plain="true" wx:if="{{recognized_student_info.length == 0}}">返回</button>
             <button class="weui-btn" type="primary" bindtap="confirmAttendence" wx:else>确定</button>
-            
         </view>
-
     </view>
 </view>

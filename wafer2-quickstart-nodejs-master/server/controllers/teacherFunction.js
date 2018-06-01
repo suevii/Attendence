@@ -105,19 +105,18 @@ module.exports = {
     getAttendList: async (ctx, next) => {
         console.log("in getAttendList")
         var attend_date = ctx.request.body.attend_date,
-            teacher_open_id = ctx.request.body.teacher_open_id,
-            course_id = ctx.request.body.course_id;
-        var result = [];
-        var res1 = await mysql.raw('select s.student_open_id, s.student_id, s.name from student as s, select_info as sl where sl.teacher_open_id=? and sl.course_id=? and s.student_open_id = sl.student_open_id ORDER BY s.student_id', [teacher_open_id, course_id]);
+            course_open_id = ctx.request.body.course_open_id,
+            result = [],
+            temp = [];
+        var res1 = await mysql.raw('select s.student_open_id, s.student_id, s.name, f.img_url from student as s, select_info as sl, face as f where f.student_open_id = s.student_open_id and sl.course_open_id=? and s.student_open_id = sl.student_open_id ORDER BY s.student_id', [course_open_id]);
         console.log(res1)
-        var res2 = await mysql.raw('select sl.student_open_id from select_info as sl left join attendence as a on sl.select_id = a.select_id where sl.teacher_open_id=? and sl.course_id=? and a.attend_date=?', [teacher_open_id, course_id, attend_date]);
+        var res2 = await mysql.raw('select sl.student_open_id from select_info as sl left join attendence as a on sl.select_id = a.select_id where sl.course_open_id=? and a.attend_date=?', [course_open_id, attend_date]);
         console.log(res2)
-        var temp = [];
         for (var i = 0; i < res2[0].length; i++) {
             var current = res2[0][i];
             temp.push(current.student_open_id)
         }
-        console.log("temp")
+        console.log("temp:")
         console.log(temp)
         for(var i = 0; i < res1[0].length; i ++){
             var current = res1[0][i];

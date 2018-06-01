@@ -1,4 +1,5 @@
 // pages/chooseCharacter/chooseCharacter.js
+// 核对流程
 const app = getApp();
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var util = require('../../utils/util.js')
@@ -10,31 +11,20 @@ Page({
         logged: false,
         authorized: false
     },
-    onLoad: function () {
-        // 查看是否授权
+    onShow: function () {
         var that = this
         wx.getSetting({
             success: function (res) {
+                // 用户是否已授予使用userInfo的权限
                 if (res.authSetting['scope.userInfo']) {
-                    // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                    console.log("已获userInfo使用授权")
                     that.setData({
                         authorized: true
                     })
                     that.login()
-                    
-                    console.log(res.authSetting['scope.userInfo'])
-                    console.log(that.data.authorized)
                 }
             }
-        })
-    },
-    onShow: function () {
-        // console.log("in onshow")
-        // if (this.data.authorized == true){
-        //     console.log("in login")
-        //     this.login()
-        // }
-            
+        }) 
     },
     //从服务器获取已选择的用户身份
     getUserCharacter: function (e) {
@@ -60,10 +50,8 @@ Page({
                     var if_teacher = res.data.data[0].if_teacher;
                     console.log("if_teacher?: " + if_teacher)
                     if (if_teacher == 1) {
-                        console.log("User is teacher");
                         that.getUserInfo('teacher');
                     } else if (if_teacher == 0){
-                        console.log("User is student");
                         that.getUserInfo('student');
                     }
                 }
@@ -83,7 +71,7 @@ Page({
                 if (result) {
                     //首次登录
                     // util.showSuccess('登录成功')
-                    console.log("首次的userInfo:(为啥没有openId，未解之谜，不管了强行登录，嘻嘻) ")
+                    console.log("首次的userInfo:")
                     console.log(result)
                 }
                 // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
@@ -112,7 +100,6 @@ Page({
             }
         })
     },
-    // 设置身份(teacher or student)
     setUserCharacter: function(e) {
         console.log("in setUserCharacter...")
         var that = this
@@ -171,7 +158,7 @@ Page({
             success: function (res) {
                 console.log(res);
                 if (res.data.data.length == 0) {
-                    console.log(character + " 未设置个人信息");
+                    console.log(character + "未设置个人信息");
                     var redirectUrl = ''
                     if (character == 'teacher'){
                         redirectUrl = '../teacher/setTeacherInfo/setTeacherInfo'
@@ -194,6 +181,18 @@ Page({
                         url: mainUrl
                     });
                 }
+            }
+        });
+    },
+    showRelaunchHint: function(){
+        wx.showModal({
+            content: '重启后生效，即将自动重启',
+            showCancel: false,
+            confirmText: '知道了',
+            success: function (res) {
+                wx.reLaunch({
+                    url: 'chooseCharacter',
+                })
             }
         });
     },

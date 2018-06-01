@@ -190,10 +190,11 @@ Page({
                             success: function (res) {
                                 console.log("detect face success")
                                 console.log(res)
+                                console.log("error_msg: " + res.data.error_msg)
                                 if(res.data.error_code == 0){
                                     var face_token = res.data.result.face_list[0].face_token,
                                         quality = res.data.result.face_list[0].quality;
-                                    if (quality.blur > 0.7 && quality.illumination < 40){
+                                    if (quality.blur > 0.7 || quality.illumination < 40){
                                         wx.showModal({
                                             title: '请重新上传照片',
                                             content: '照片清晰度或亮度不符合要求！',
@@ -228,6 +229,15 @@ Page({
                                             }
                                         })
                                     }
+                                }else if(res.data.error_code == 222202){
+                                    wx.showModal({
+                                        title: '请重新上传照片',
+                                        content: '照片不是真人！',
+                                    })
+                                }else{
+                                    wx.showToast({
+                                        title: res.data.error_msg,
+                                    })
                                 }
                                 
                             },
@@ -377,6 +387,15 @@ Page({
                                             }
                                         })
                                     }
+                                } else if (res.data.error_code == 222202) {
+                                    wx.showModal({
+                                        title: '请重新上传照片',
+                                        content: '照片不是真人！',
+                                    })
+                                } else {
+                                    wx.showToast({
+                                        title: res.data.error_msg,
+                                    })
                                 }
 
                             },

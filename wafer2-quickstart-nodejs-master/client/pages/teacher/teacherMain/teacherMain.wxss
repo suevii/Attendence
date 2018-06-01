@@ -2,46 +2,10 @@
     margin: 0 auto;
     width: 60%;
 }
-.vLine {
-  height: 2rpx;
-  background-color: #e5e5e5;
-}
-
-.vDate {
-  margin-left: 40rpx;
-  display: flex;
-  align-items: center;
-}
-.vLabeldate
-{
-  height: 48rpx;
-  line-height: 58rpx;
-  font-size: 34rpx;
-  color: rgba(0, 0, 0, 0.87);
-}
 
 .vDate image {
   width: 25rpx;
   height: 25rpx;
   margin-left: 18rpx;
   /*transform: rotate(90deg);*/
-}
-
-.tName {
-  height: 48rpx;
-  line-height: 48rpx;
-  font-size: 34rpx;
-}
-
-
-.iHead {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-}
-
-.iMore {
-  width: 52rpx;
-  height: 100%;
-  margin: 0rpx 40rpx 0rpx auto;
 }

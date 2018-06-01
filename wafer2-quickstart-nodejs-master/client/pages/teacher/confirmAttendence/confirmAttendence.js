@@ -15,6 +15,7 @@ Page({
         var date = util.formatDate(new Date());
         this.setData({
             date: date,
+            count: options.count,       //总识别出人脸个数
             course_id: options.course_id,
             photo_url: options.photo_url,
             recognized_student_open_id: JSON.parse(options.recognized_student_open_id)

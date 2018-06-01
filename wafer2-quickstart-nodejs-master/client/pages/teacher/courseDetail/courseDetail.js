@@ -1,4 +1,5 @@
 // pages/teacher/courseDetail/courseDetail.js
+// done
 const app = getApp();
 var qcloud = require('../../../vendor/wafer2-client-sdk/index')
 var util = require('../../../utils/util.js')
@@ -11,9 +12,7 @@ Page({
         course_name: '',
         invitation_code: '',
         student_number: 0,
-        files: [],
-        imgUrl: '',
-        face_list_created: false
+        files: []
     },
 
     onLoad: function (options) {
@@ -23,8 +22,6 @@ Page({
             course_name: options.course_name,
         });
         this.getInitData();
-        console.log("course_id: " + this.data.course_id)
-        console.log("course_name: " + this.data.course_name)
     },
 
     onShow: function () {
@@ -43,9 +40,6 @@ Page({
             method: 'POST',
             data: {
                 course_open_id: that.data.course_open_id
-                // course_id: that.data.course_id,
-                // course_name: that.data.course_name,
-                // teacher_open_id: app.globalData.userInfo.openId
             },
             header: {
                 'content-type': 'application/json'
@@ -53,8 +47,7 @@ Page({
             success: function (res) {
                 console.log(res);
                 that.setData({
-                    invitation_code: res.data.data[0].invitation_code,
-                    course_open_id: res.data.data[0].course_open_id
+                    invitation_code: res.data.data[0].invitation_code
                 })
                 that.getStudentNumber();
             }
@@ -68,8 +61,6 @@ Page({
             method: 'POST',
             data: {
                 course_open_id: that.data.course_open_id
-                //course_id: that.data.course_id,
-                //teacher_open_id: app.globalData.userInfo.openId
             },
             header: {
                 'content-type': 'application/json'
@@ -114,15 +105,14 @@ Page({
     
     doRecognition: function (e) {
         console.log("in doRecognition...")
-        var that = this;
-        var access_token = app.globalData.access_token;
+        var that = this,
+            access_token = app.globalData.access_token;
         var detect_url = 'https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token=' + access_token,
             search_url = 'https://aip.baidubce.com/rest/2.0/face/v3/search?access_token=' + access_token;
 
-        var face_id_array = [],             // detect返回值
-            recognized_student_open_id = [];   // 识别出的学生名单
-
-        var count = 0;  // 计数识别到第几个
+        var face_id_array = [],                 // detect返回值
+            recognized_student_open_id = [],    // 识别出的学生名单
+            count = 0;                          // 计数识别到第几个
 
         // Step1. chooseImage
         wx.chooseImage({
@@ -141,14 +131,9 @@ Page({
                     filePath: filePath,
                     name: 'file',
                     success: function (res) {
-                        console.log(res)
                         res = JSON.parse(res.data)  // 这里就是要parse:)
                         console.log(res)
-                        that.setData({
-                            imgUrl: res.data.imgUrl,
-                        })
-                        console.log("imgUrl: " + that.data.imgUrl)
-                        var detect_img_url = that.data.imgUrl
+                        var detect_img_url = res.data.imgUrl
                         //Step3. detect API, 获取合照中的face_token
                         wx.request({
                             url: detect_url,
@@ -162,12 +147,12 @@ Page({
                             },
                             method: 'POST',
                             success: function (res) {
-                                console.log("step3")
+                                console.log("result of detect image:")
                                 console.log(res)
                                 if (res.data.error_code == 0 && res.data.result.face_list.length != 0){
                                     var face_list = res.data.result.face_list
                                     console.log(face_list)
-                                    console.log("开始一个个识别！")
+                                    console.log("开始一个个搜索！")
                                     for(var i = 0; i < face_list.length; i ++){
                                         (function () { // j = i
                                             var j = i;
@@ -194,15 +179,11 @@ Page({
                                                                 recognized_student_open_id.push(res.data.result.user_list[0].user_info);
                                                             }
                                                         }
-                                                        console.log("recognized_student:")
-                                                        console.log(recognized_student_open_id)
                                                         count++;
-                                                        console.log("count: " + count);
-                                                        console.log("length:" + face_list.length)
                                                         if (count == face_list.length) {
                                                             console.log("最后一个")
                                                             wx.navigateTo({
-                                                                url: '../confirmAttendence/confirmAttendence?photo_url=' + detect_img_url + '&course_id=' + that.data.course_id + '&recognized_student_open_id=' + JSON.stringify(recognized_student_open_id),
+                                                                url: '../confirmAttendence/confirmAttendence?count=' + count + '&photo_url=' + detect_img_url + '&course_id=' + that.data.course_id + '&recognized_student_open_id=' + JSON.stringify(recognized_student_open_id),
                                                             })
                                                         }
                                                     }
@@ -220,8 +201,8 @@ Page({
     },
 
     deleteCourse: function(){
-        var that = this
-        var access_token = app.globalData.access_token;
+        var that = this,
+            access_token = app.globalData.access_token;
         var delete_face_group_url = "https://aip.baidubce.com/rest/2.0/face/v3/faceset/group/delete?access_token=" + access_token;
         wx.showModal({
             title: '确定删除课程？',
@@ -236,14 +217,12 @@ Page({
                         method: 'DELETE',
                         data: {
                             course_open_id: that.data.course_open_id
-                            // course_id: that.data.course_id,
-                            // teacher_open_id: app.globalData.userInfo.openId
                         },
                         header: {
                             'content-type': 'application/json'
                         },
                         success: function (res) {
-                            console.log("After deleteCourse");
+                            console.log("After delete course in database");
                             console.log(res);
                             // delete faceList
                             if(res.data.code == 0){
@@ -271,8 +250,8 @@ Page({
                                 });
                             }else{
                                 console.log("删除课程失败")
+                                console.log(res.data.errMsg)
                             }
-                            
                         }
                     });
                 } else {

@@ -1,4 +1,5 @@
 // pages/teacher/addCourse/addCourse.js
+// done
 const app = getApp();
 var qcloud = require('../../../vendor/wafer2-client-sdk/index')
 var util = require('../../../utils/util.js')
@@ -16,7 +17,6 @@ Page({
     */
     addCourse: function(e) {
         console.log("in addCourse")
-
         var that = this,
             access_token = app.globalData.access_token;
         var create_face_group_url = "https://aip.baidubce.com/rest/2.0/face/v3/faceset/group/add?access_token=" + access_token;
@@ -64,6 +64,7 @@ Page({
                     })
                 }else{
                     console.log("添加失败")
+                    console.log("errMsg: " + res.data.errMsg)
                 }
             }
         });

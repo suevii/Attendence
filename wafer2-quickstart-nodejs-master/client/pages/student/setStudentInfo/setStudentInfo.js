@@ -1,4 +1,5 @@
 // pages/student/setStudentInfo/setStudentInfo.js
+// done
 const app = getApp();
 var qcloud = require('../../../vendor/wafer2-client-sdk/index')
 var util = require('../../../utils/util.js')
@@ -19,10 +20,9 @@ Page({
     },
 
     addStudent: function (e){
-        var that = this
-        console.log("if_first_time in function: " + that.data.if_first_time)
-        var student_name = e.detail.value.student_name;
-        var student_id = e.detail.value.student_id;
+        var that = this,
+            student_name = e.detail.value.student_name,
+            student_id = e.detail.value.student_id;
         if (that.data.if_first_time == 'true' || that.data.if_first_time == true){
             console.log("in addStudent")
             wx.request({

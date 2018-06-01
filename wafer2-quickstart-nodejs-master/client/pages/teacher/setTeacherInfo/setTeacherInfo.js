@@ -1,4 +1,5 @@
 // pages/teacher/teacherInfo/teacherInfo.js
+// done
 const app = getApp();
 var qcloud = require('../../../vendor/wafer2-client-sdk/index')
 var util = require('../../../utils/util.js')
@@ -19,9 +20,8 @@ Page({
     },
 
     addTeacher: function (e) { 
-        var that = this
-        console.log("if_first_time in function: " + that.data.if_first_time)
-        var teacher_name = e.detail.value.teacher_name;
+        var that = this,
+            teacher_name = e.detail.value.teacher_name;
         if (that.data.if_first_time == 'true' || that.data.if_first_time == true) {
             console.log("in addTeacher...")
             wx.request({

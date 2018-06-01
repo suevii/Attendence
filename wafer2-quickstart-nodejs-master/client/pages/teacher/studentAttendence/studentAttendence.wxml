@@ -1,32 +1,29 @@
 <!--pages/teacher/studentAttendence/studentAttendence.wxml-->
+<!--出勤/共计，这里的style -->
 <picker class="pWorkers-item" mode="date" value="{{date}}" start="2017-01-01" end="2020-12-30" bindchange="dateChange">
     <view class="vDate">
         <view class="vLabeldate">{{date}}</view>
         <image src="/image/icons/down.png" mode="aspectFit"></image>
-    </view>
+    </view> 
 </picker>
 
-<!-- <view class="weui-cells__title">
-    点击
-    <image src="/image/icons/preview.png" style="margin-left: 5rpx; margin-right: 5rpx; vertical-align: middle;width:30rpx; height: 30rpx;"></image>
-    可查看学生照片
-</view>  -->
+<view class="weui-cells__title">
+    点击<image src="/image/icons/preview.png" style="margin-left: 3rpx; margin-right: 3rpx; vertical-align: middle;width:30rpx; height: 30rpx;"></image>可查看学生照片
+    <text style='margin-left:150rpx'>出勤{{attend_student_number}}人/共{{total_student_number}}人</text>
+</view>  
 
 <view class="weui-cells weui-cells_after-title" wx:for="{{attend_list}}">
     <view class="weui-cell">
-        <view class="weui-cell__bd">{{item.student_id}}</view>
+        <image src="/image/icons/preview.png" data-url="{{item.img_url}}" style="vertical-align: middle;width:40rpx; height: 40rpx;" bindtap='previewImage'></image>
+        <view class="weui-cell__bd" style="margin-left:10rpx">{{item.student_id}}</view>
         <view class="weui-cell__bd" style="margin-right:20rpx">{{item.name}}</view>
         <view class="weui-cell__ft">
             <icon type="success_no_circle" size="23" wx:if="{{item.if_attend == 1}}"></icon>
             <icon type="cancel" size="23" wx:else></icon>
         </view>
     </view>
-    <!-- <view class="weui-cell" wx:if="{{item[0].open == true}}">
-        <view class="weui-cell__bd">
-            <image src="{{item[0].img_url}}" mode="aspectFit"></image>
-        </view>
-    </view> -->
 </view>
+
 <block wx:if="{{attend_list.length == 0}}">
     <view class="noquick">
         <image src="/image/icons/noquick.png"></image>
